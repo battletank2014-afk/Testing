@@ -20,18 +20,24 @@ jobs:
       - name: Install toolchain
         run: |
           rokit install --no-trust-check || true
-          rojo --version || true
+          rojo --version
 
-      - name: Luau tests (Lune)
-        continue-on-error: true
+      - name: Install Lune
         run: |
-          curl -fsSL https://raw.githubusercontent.com/lune-org/lune/main/scripts/install.sh | bash || true
-          lune run tests/StageDefinitions.spec.luau || echo "lune unavailable, skipping"
+          curl -fsSL -o /tmp/lune.zip \
+            https://github.com/lune-org/lune/releases/download/v0.10.5/lune-0.10.5-linux-x86_64.zip
+          python3 -c "import zipfile; zipfile.ZipFile('/tmp/lune.zip').extractall('/tmp/lune')"
+          chmod +x /tmp/lune/lune
+          echo "/tmp/lune" >> "$GITHUB_PATH"
+
+      - name: Luau tests
+        run: lune run tests/StageDefinitions.spec.luau
 
       - name: Build place file
         run: |
           mkdir -p build
           rojo build default.project.json -o build/SkywardSprint.rbxlx
+          test -s build/SkywardSprint.rbxlx
           ls -la build
 
       - name: Upload place artifact
