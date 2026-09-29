@@ -1,0 +1,3 @@
+[selene]
+# `process.exit` and friends come from the Lune runtime used by tests.
+roblox = true

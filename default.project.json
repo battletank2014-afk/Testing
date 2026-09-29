@@ -1,0 +1,81 @@
+{
+  "name": "SkywardSprint",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "Shared": {
+        "$path": "src/shared"
+      }
+    },
+
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "Server": {
+        "$path": "src/server"
+      }
+    },
+
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "$properties": {
+        "CharacterWalkSpeed": 16,
+        "CharacterJumpPower": 50,
+        "EnableMouseLockOption": false
+      },
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "Client": {
+          "$path": "src/client"
+        }
+      }
+    },
+
+    "Workspace": {
+      "$className": "Workspace",
+      "$properties": {
+        "FilteringEnabled": true,
+        "FallenPartsDestroyHeight": -200
+      },
+      "Baseplate": {
+        "$className": "Part",
+        "$properties": {
+          "Size": [512, 20, 512],
+          "Position": [0, -12, 0],
+          "Anchored": true,
+          "Material": "Grass",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "SpawnLocation": {
+        "$className": "SpawnLocation",
+        "$properties": {
+          "Size": [12, 1, 12],
+          "Position": [0, 1, 0],
+          "Anchored": true,
+          "Neutral": true,
+          "Material": "SmoothPlastic"
+        }
+      },
+      "Level": {
+        "$className": "Folder"
+      }
+    },
+
+    "Lighting": {
+      "$className": "Lighting",
+      "$properties": {
+        "ClockTime": 14,
+        "Brightness": 2,
+        "Ambient": [0.45, 0.45, 0.5],
+        "OutdoorAmbient": [0.5, 0.5, 0.55]
+      }
+    },
+
+    "ServerStorage": {
+      "$className": "ServerStorage"
+    }
+  }
+}

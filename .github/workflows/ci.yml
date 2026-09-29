@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rokit
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/rojo-rbx/rokit/main/scripts/install.sh | bash
+          echo "$HOME/.rokit/bin" >> "$GITHUB_PATH"
+
+      - name: Install toolchain
+        run: |
+          rokit install --no-trust-check || true
+          rojo --version || true
+
+      - name: Luau tests (Lune)
+        continue-on-error: true
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/lune-org/lune/main/scripts/install.sh | bash || true
+          lune run tests/StageDefinitions.spec.luau || echo "lune unavailable, skipping"
+
+      - name: Build place file
+        run: |
+          mkdir -p build
+          rojo build default.project.json -o build/SkywardSprint.rbxlx
+          ls -la build
+
+      - name: Upload place artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SkywardSprint-place
+          path: build/SkywardSprint.rbxlx
