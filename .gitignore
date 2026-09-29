@@ -1,0 +1,8 @@
+build/
+*.rbxl
+*.rbxlx
+*.rbxl.lock
+*.rbxlx.lock
+*.rbxm
+!tests/**
+.DS_Store
